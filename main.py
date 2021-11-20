@@ -12,8 +12,12 @@ spaceship.start_coords(370, 480)
 spaceship.set_boundary(x_lower=0, x_upper=736)
 X_offset = 0
 
+# Alien
 alien = PyGameImage("assets/001-alien-pixelated-shape-of-a-digital-game.png")
-alien.start_coords(370, 200)
+alien.start_coords(randint(0,736), randint(50,150))
+alien.set_boundary(x_lower=0, x_upper=736)
+alien.speed = 0.3
+alien.step_down = 3
 
 
 # Set display size, window name, and window icon
@@ -45,6 +49,14 @@ while running:
     # Draw Shipship
     # spaceshipX += X_offset
     spaceship.move(axis=1, amount=X_offset)
+    # Move the alien down as it hits the boundaries moving left and right
+    alien.move(axis=1, amount=alien.speed)
+    if alien.x == alien.x_bound_upper:
+        alien.speed = alien.speed/-1
+        alien.move(axis=0, amount=alien.step_down)
+    if alien.x == alien.x_bound_lower:
+        alien.speed = alien.speed/-1
+        alien.move(axis=0, amount=alien.step_down)
     spaceship.render(screen)
     alien.render(screen)
 
