@@ -7,10 +7,11 @@ pygame.init()
 # Asset loading
 icon = pygame.image.load("assets/001-alien-pixelated-shape-of-a-digital-game.png")
 
+# Spaceship
 spaceship = PyGameImage("assets/001-spaceship.png")
 spaceship.start_coords(370, 480)
 spaceship.set_boundary(x_lower=0, x_upper=736)
-X_offset = 0
+spaceship.speed = 0
 
 # Alien
 alien = PyGameImage("assets/001-alien-pixelated-shape-of-a-digital-game.png")
@@ -21,6 +22,7 @@ alien.step_down = 3
 
 
 # Set display size, window name, and window icon
+## Set display size, window name, and window icon
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("SpaceInvaders")
 pygame.display.set_icon(icon)
@@ -33,15 +35,15 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # Keystroke detection
+        ## Moving spaceship with arrow keys
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                X_offset = -0.1
+                spaceship.speed = -0.3
             if event.key == pygame.K_RIGHT:
-                X_offset = 0.1
+                spaceship.speed = 0.3
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                X_offset = 0
+                spaceship.speed = 0
 
     # Set Background Fill (RGB). Interacts with pygame.display.update()
     screen.fill((255, 255, 255))
@@ -49,6 +51,7 @@ while running:
     # Draw Shipship
     # spaceshipX += X_offset
     spaceship.move(axis=1, amount=X_offset)
+    spaceship.move(axis=1, amount=spaceship.speed)
     # Move the alien down as it hits the boundaries moving left and right
     alien.move(axis=1, amount=alien.speed)
     if alien.x == alien.x_bound_upper:
