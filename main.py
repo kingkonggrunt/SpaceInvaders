@@ -1,34 +1,25 @@
 import pygame
+from src.PyGameAssets import PyGameImage
+
 
 pygame.init()
 
 # Asset loading
 icon = pygame.image.load("assets/001-alien-pixelated-shape-of-a-digital-game.png")
-spaceship = pygame.image.load("assets/001-spaceship.png")
-alien = pygame.image.load("assets\001-alien-pixelated-shape-of-a-digital-game.png")
+
+spaceship = PyGameImage("assets/001-spaceship.png")
+spaceship.start_coords(370, 480)
+spaceship.set_boundary(x_lower=0, x_upper=736)
+X_offset = 0
+
+alien = PyGameImage("assets/001-alien-pixelated-shape-of-a-digital-game.png")
+alien.start_coords(370, 200)
+
 
 # Set display size, window name, and window icon
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("SpaceInvaders")
 pygame.display.set_icon(icon)
-
-
-# Starting Cooridinates of the Spaceship
-spaceshipX = 370
-spaceshipY = 480
-
-# Starting Coordinates of the alien
-alienX = None
-alienY = None
-
-# Spaceship movement
-X_offset = 0 
-
-# Alien movement
-X_offset_alien = 0
-
-# def player():
-#     screen.blit(spaceship, (spaceshipX, spaceshipY))
 
 # Run Game
 running = True
@@ -52,14 +43,10 @@ while running:
     screen.fill((255, 255, 255))
 
     # Draw Shipship
-    spaceshipX += X_offset
-
-    # Setting shipship boundary
-    if spaceshipX <= 0:
-        spaceshipX = 0
-    elif spaceshipX >= 736:
-        spaceshipX = 736
-    screen.blit(spaceship, (spaceshipX, spaceshipY))
+    # spaceshipX += X_offset
+    spaceship.move(axis=1, amount=X_offset)
+    spaceship.render(screen)
+    alien.render(screen)
 
     pygame.display.update()
 
