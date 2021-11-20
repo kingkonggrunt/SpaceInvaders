@@ -1,10 +1,11 @@
 import pygame
 from src.PyGameAssets import PyGameImage
-
+from random import randint
+from numpy import random
 
 pygame.init()
 
-# Asset loading
+## Asset loading
 icon = pygame.image.load("assets/001-alien-pixelated-shape-of-a-digital-game.png")
 
 # Spaceship
@@ -20,18 +21,20 @@ alien.set_boundary(x_lower=0, x_upper=736)
 alien.speed = 0.3
 alien.step_down = 3
 
+# Background
+background = PyGameImage("assets\pf-s96-pm-0042-01.jpg")
+background.start_coords(-200,-200)
 
-# Set display size, window name, and window icon
 ## Set display size, window name, and window icon
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("SpaceInvaders")
 pygame.display.set_icon(icon)
 
-# Run Game
+## Run Game
 running = True
 while running:
     for event in pygame.event.get():
-        # Quit Game
+        ## Quit Game
         if event.type == pygame.QUIT:
             running = False
 
@@ -45,13 +48,15 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 spaceship.speed = 0
 
-    # Set Background Fill (RGB). Interacts with pygame.display.update()
+    ## Set Background Fill (RGB). Interacts with pygame.display.update()
     screen.fill((255, 255, 255))
 
-    # Draw Shipship
-    # spaceshipX += X_offset
-    spaceship.move(axis=1, amount=X_offset)
+    ## Move and Draw Assets
+    background.move(axis=1, amount=random.normal(0, 0.009))
+    background.move(axis=0, amount=random.normal(0, 0.009))
+
     spaceship.move(axis=1, amount=spaceship.speed)
+
     # Move the alien down as it hits the boundaries moving left and right
     alien.move(axis=1, amount=alien.speed)
     if alien.x == alien.x_bound_upper:
@@ -60,6 +65,9 @@ while running:
     if alien.x == alien.x_bound_lower:
         alien.speed = alien.speed/-1
         alien.move(axis=0, amount=alien.step_down)
+
+    # Draw/Render Assets
+    background.render(screen)
     spaceship.render(screen)
     alien.render(screen)
 
