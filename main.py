@@ -54,6 +54,8 @@ while running:
     ## Move and Draw Assets
     background.move(axis=1, amount=random.normal(0, 0.009))
     background.move(axis=0, amount=random.normal(0, 0.009))
+    background.move(axis=1, amount=random.normal(0, 0.008))
+    background.move(axis=0, amount=random.normal(0, 0.008))
 
     spaceship.move(axis=1, amount=spaceship.speed)
 
