@@ -18,8 +18,8 @@ spaceship.speed = 0
 alien = PyGameImage("assets/001-alien-pixelated-shape-of-a-digital-game.png")
 alien.start_coords(randint(0,736), randint(50,150))
 alien.set_boundary(x_lower=0, x_upper=736)
-alien.speed = 0.3
-alien.step_down = 3
+alien.speed = 0.20
+alien.step_down = 8
 
 # Background
 background = PyGameImage("assets\pf-s96-pm-0042-01.jpg")
