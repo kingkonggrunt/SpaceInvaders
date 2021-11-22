@@ -1,9 +1,9 @@
 import pygame
 from pygame import mixer
 from src.PyGameAssets import PyGameImage, PyGameFont
-from numpy import random
-import math
 from entities.entities import Alien
+import math
+from numpy import random
 
 pygame.init()
 
