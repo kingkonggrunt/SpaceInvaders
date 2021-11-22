@@ -146,6 +146,12 @@ while running:
             bullet.start_coords(0, bullet.start_x_on_fire)
             score += 1
             alien.respawn()
+            alien.speed = alien.speed * (((abs(alien.speed)) + 0.1)/abs(alien.speed))  # increase speed
+                # Explanation: Due to the way speed increases on respawn, if the
+                # alien is hit when moving to the left it will have it's relative speed decrease
+                # (and sometimes make it stop moving).
+                # This ensures the relative speed of the alien increases by 0.1
+                # no matter the direction it is moving in.
 
     if game_over:
         game_over_display.render(screen, "GAME OVER")
