@@ -93,3 +93,35 @@ class PyGameImage:
             if not self.y_bound_upper is None:
                 if self.y >= self.y_bound_upper:
                     self.y = self.y_bound_upper
+
+
+class PyGameFont(PyGameImage):
+    def __init__(self, font='freesansbold.ttf', size=32):
+        self.font = (font, size)
+        super().start_coords(45, 7)
+        self._color = (0, 0, 0)
+
+    @property
+    def font(self):
+        return self._text
+
+    @font.setter
+    def font(self, properties):
+        self._text = pygame.font.Font(properties[0], properties[1])
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        if type(value) is tuple and len(value) == 3:
+            self._color = value
+        else:
+            raise TypeError("Color value is (R,G,B) format. Eg (255, 255, 255)")
+
+    def set_color(self, value):
+        self._color = value
+
+    def render(self, screen, text):
+        screen.blit(self.font.render(text, True, self._color), (self.x, self.y))
