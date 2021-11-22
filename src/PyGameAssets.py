@@ -25,7 +25,7 @@ class PyGameImage:
         Current Asset's Upper Bound Y coordinate. To limit position of asset
     """
     def __init__(self, dir):
-        self._image = pygame.image.load(dir)
+        self.image = dir
 
         self.x = None
         self.y = None
@@ -35,15 +35,23 @@ class PyGameImage:
         self.y_bound_lower = None
         self.y_bound_upper = None
 
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, dir):
+        self._image = pygame.image.load(dir)
+
     def start_coords(self, x, y):
         self.x = x
         self.y = y
 
     def render(self, screen, x=None, y=None):
         if x is None and y is None:
-            screen.blit(self._image, (self.x, self.y))
+            screen.blit(self.image, (self.x, self.y))
         else:
-            screen.blit(self._image, (x,y))
+            screen.blit(self.image, (x,y))
 
     def set_boundary(self, x_lower=None, x_upper=None, y_upper=None, y_lower=None):
         """
