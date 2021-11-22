@@ -65,6 +65,9 @@ while running:
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     spaceship.speed = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                spaceship.speed = 0
 
             # bullet firing (only when bullet is not rendered)
             if event.key == pygame.K_SPACE:
