@@ -59,8 +59,13 @@ def isCollision(alienX, alienY, bulletX, bulletY):
         return True
     return False
 
+## Game Over Function
+game_over_display = PyGameFont(size=64)
+game_over_display.start_coords(200, 250)
+
 
 ## Run Game
+game_over = False
 running = True
 while running:
     for event in pygame.event.get():
@@ -105,7 +110,13 @@ while running:
     # That the alien goes in the x direction and move the alien downwards.
     for alien in aliens:
         alien.move_to_player()
-
+        ## Game Over
+        if alien.y > 440:
+            if alien.y < 2000:
+                for alien in aliens:
+                    alien.start_coords(alien.x, alien.y + 2000)
+            game_over = True
+            break
 
     # Draw/Render Assets
     background.render(screen)
@@ -136,6 +147,8 @@ while running:
             score += 1
             alien.respawn()
 
+    if game_over:
+        game_over_display.render(screen, "GAME OVER")
     score_display.render(screen, f"Score: {score}")
     pygame.display.update()
 
