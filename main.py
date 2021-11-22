@@ -24,7 +24,7 @@ spaceship.speed = 0
 _bullet = pygame.image.load("assets/001-bullet.png")
 bullet = PyGameImage("assets/001-bullet.png")
 bullet.start_coords(0, 480)  # off screen
-bullet.speed = -0.5
+bullet.speed = -1.5
 bullet.state = False  # Bullet is not fired yet/Not rendered on screen
 bullet.start_x_on_fire = 490  # Starting position of the bullet once rendered
 
