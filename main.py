@@ -43,6 +43,17 @@ def fire_bullet(bullet, x, y):
     bullet.state = True
     screen.blit(_bullet, (x + 16), (y + 10))
     # bullet.render(screen)
+## Game Score
+score = 0
+
+## collision Detection
+def isCollision(alienX, alienY, bulletX, bulletY):
+    distance = math.sqrt((math.pow(alienX - bulletX, 2))
+    + (math.pow(alienY - bulletY, 2)))
+    while distance < 27:
+        return True
+    return False
+
 
 ## Run Game
 running = True
@@ -114,6 +125,12 @@ while running:
         bullet.y += bullet.speed
 
 
+    ## Bullet and Alien Collsion. Reset bullet, add score and remove alien.
+    collision = isCollision(alien.x, alien.y, bullet.x, bullet.y)
+    if collision:
+        bullet.state = False
+        bullet.start_coords(0, bullet.start_x_on_fire)
+        score += 1
     pygame.display.update()
 
     pass
