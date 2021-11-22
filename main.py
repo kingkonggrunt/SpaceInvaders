@@ -24,7 +24,11 @@ bullet.state = False  # Bullet is not fired yet/Not rendered on screen
 bullet.start_x_on_fire = 490  # Starting position of the bullet once rendered
 
 # Alien
-alien = Alien()
+no_of_aliens = 10
+aliens = []
+for alien in range(no_of_aliens):
+    aliens.append(Alien())
+# alien = Alien()
 
 # Background
 background = PyGameImage("assets\pf-s96-pm-0042-01.jpg")
@@ -89,13 +93,15 @@ while running:
 
     # Alien movement. Once the alien has reach on of it's x boundaries. Flip the direction
     # That the alien goes in the x direction and move the alien downwards.
-    alien.move_to_player()
+    for alien in aliens:
+        alien.move_to_player()
 
 
     # Draw/Render Assets
     background.render(screen)
     spaceship.render(screen)
-    alien.render(screen)
+    for alien in aliens:
+        alien.render(screen)
 
 
     # Bullet movement. When the bullet has left the screen, reset the position.
@@ -110,12 +116,13 @@ while running:
 
 
     ## Bullet and Alien Collsion. Reset bullet, add score and remove alien.
-    collision = isCollision(alien.x, alien.y, bullet.x, bullet.y)
-    if collision:
-        bullet.state = False
-        bullet.start_coords(0, bullet.start_x_on_fire)
-        score += 1
-        alien.respawn()
+    for alien in aliens:
+        collision = isCollision(alien.x, alien.y, bullet.x, bullet.y)
+        if collision:
+            bullet.state = False
+            bullet.start_coords(0, bullet.start_x_on_fire)
+            score += 1
+            alien.respawn()
 
     pygame.display.update()
 
