@@ -10,6 +10,10 @@ class Alien(PyGameImage):
         self.step_down = 8
 
     def move_to_player(self):
+        """
+        Once the alien has reach one of it's x boundaries. Flip the direction
+        That the alien goes in the x direction and move the alien downwards.
+        """
         super().move(axis=1, amount=self.speed)
         if self.x == self.x_bound_upper:
             self.speed = self.speed/-1
@@ -19,4 +23,11 @@ class Alien(PyGameImage):
             super().move(axis=0, amount=self.step_down)
 
     def respawn(self):
-        super().start_coords(randint(1,735), randint(50,150))  #  (1,735) prevent respawning on boundaries
+        """
+        Respawn alien at a new position.
+
+        Respawn alien within the x_bound_lower and x_bound_upper values to prevent
+        a bug where respawning on the boundary will not cause the alien to change
+        directions and continuously move downards
+        """
+        super().start_coords(randint(1,735), randint(50,150))
