@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from src.PyGameAssets import PyGameImage, PyGameFont
 from numpy import random
 import math
@@ -37,6 +38,9 @@ for alien in range(no_of_aliens):
 background = PyGameImage("assets\pf-s96-pm-0042-01.jpg")
 background.start_coords(-200,-200)
 
+# Background Music
+mixer.music.load('assets/background.wav')
+mixer.music.play(-1)
 
 ## Set display size, window name, and window icon
 screen = pygame.display.set_mode((800,600))
@@ -81,6 +85,8 @@ while running:
             if event.key == pygame.K_SPACE:
                 if bullet.state == False:
                     bullet.state = True
+                    bullet_sound = mixer.Sound('assets/laser.wav')
+                    bullet_sound.play()
                     bullet.start_coords(spaceship.x + 16, bullet.start_x_on_fire)
                     bullet.render(screen)
 
@@ -123,6 +129,8 @@ while running:
         collision = isCollision(alien.x, alien.y, bullet.x, bullet.y)
         if collision:
             bullet.state = False
+            explosion_sound = mixer.Sound('assets/explosion.wav')
+            explosion_sound.play()
             bullet.start_coords(0, bullet.start_x_on_fire)
             score += 1
             alien.respawn()
