@@ -12,6 +12,7 @@ icon = pygame.image.load("assets/001-alien-pixelated-shape-of-a-digital-game.png
 
 # Font/Text Renderer
 score_display = PyGameFont()
+score_display.start_coords(45, 7)
 
 # Spaceship
 spaceship = PyGameImage("assets/001-spaceship.png")

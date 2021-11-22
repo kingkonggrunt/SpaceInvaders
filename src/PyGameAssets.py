@@ -98,7 +98,6 @@ class PyGameImage:
 class PyGameFont(PyGameImage):
     def __init__(self, font='freesansbold.ttf', size=32):
         self.font = (font, size)
-        super().start_coords(45, 7)
         self._color = (0, 0, 0)
 
     @property
