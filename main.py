@@ -1,7 +1,8 @@
 import pygame
 from src.PyGameAssets import PyGameImage
-from random import randint
 from numpy import random
+import math
+from entities.entities import Alien
 
 pygame.init()
 
@@ -23,11 +24,7 @@ bullet.state = False  # Bullet is not fired yet/Not rendered on screen
 bullet.start_x_on_fire = 490  # Starting position of the bullet once rendered
 
 # Alien
-alien = PyGameImage("assets/001-alien-pixelated-shape-of-a-digital-game.png")
-alien.start_coords(randint(0,736), randint(50,150))
-alien.set_boundary(x_lower=0, x_upper=736)
-alien.speed = 0.20
-alien.step_down = 8
+alien = Alien()
 
 # Background
 background = PyGameImage("assets\pf-s96-pm-0042-01.jpg")
@@ -39,10 +36,6 @@ screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("SpaceInvaders")
 pygame.display.set_icon(icon)
 
-def fire_bullet(bullet, x, y):
-    bullet.state = True
-    screen.blit(_bullet, (x + 16), (y + 10))
-    # bullet.render(screen)
 ## Game Score
 score = 0
 
@@ -73,9 +66,6 @@ while running:
                 spaceship.speed = -0.3
             if event.key == pygame.K_RIGHT:
                 spaceship.speed = 0.3
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                    spaceship.speed = 0
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 spaceship.speed = 0
@@ -99,13 +89,7 @@ while running:
 
     # Alien movement. Once the alien has reach on of it's x boundaries. Flip the direction
     # That the alien goes in the x direction and move the alien downwards.
-    alien.move(axis=1, amount=alien.speed)
-    if alien.x == alien.x_bound_upper:
-        alien.speed = alien.speed/-1
-        alien.move(axis=0, amount=alien.step_down)
-    if alien.x == alien.x_bound_lower:
-        alien.speed = alien.speed/-1
-        alien.move(axis=0, amount=alien.step_down)
+    alien.move_to_player()
 
 
     # Draw/Render Assets
@@ -131,6 +115,8 @@ while running:
         bullet.state = False
         bullet.start_coords(0, bullet.start_x_on_fire)
         score += 1
+        alien.respawn()
+
     pygame.display.update()
 
     pass
