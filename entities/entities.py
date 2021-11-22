@@ -7,7 +7,7 @@ class Alien(PyGameImage):
         super().set_boundary(x_lower=0, x_upper=736)
         super().start_coords(randint(0,736), randint(50,150))
         self.speed = 0.20
-        self.step_down = 8
+        self.step_down = 20
 
     def move_to_player(self):
         """
