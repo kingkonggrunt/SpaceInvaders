@@ -1,5 +1,5 @@
 import pygame
-from src.PyGameAssets import PyGameImage
+from src.PyGameAssets import PyGameImage, PyGameFont
 from numpy import random
 import math
 from entities.entities import Alien
@@ -8,6 +8,9 @@ pygame.init()
 
 ## Asset loading
 icon = pygame.image.load("assets/001-alien-pixelated-shape-of-a-digital-game.png")
+
+# Font/Text Renderer
+score_display = PyGameFont()
 
 # Spaceship
 spaceship = PyGameImage("assets/001-spaceship.png")
@@ -124,6 +127,7 @@ while running:
             score += 1
             alien.respawn()
 
+    score_display.render(screen, f"Score: {score}")
     pygame.display.update()
 
     pass
